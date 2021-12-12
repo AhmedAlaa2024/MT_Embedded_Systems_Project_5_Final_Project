@@ -1,0 +1,52 @@
+/*
+ * FinalProject.c
+ *
+ *  Created on: 16/12þ/2020
+ *      Author: Ahmed El Daly
+ */
+
+#ifndef FINALPROJECT_H_
+#define FINALPROJECT_H_
+
+
+/*******************************************************************************
+ *                      Preprocessor Macros                                    *
+ *******************************************************************************/
+
+#define HMI_ECU_IS_READY 			0xA5
+#define CONTROL_ECU_IS_READY 		0x5A
+
+#define BUZZER 						0x55
+#define CORRECT 					0xF0
+#define WRONG 						0x0F
+
+/*******************************************************************************
+ *                                   INCLUDES                                  *
+ *******************************************************************************/
+
+#include "timer1.h"
+#include "micro_config.h"
+#include "std_types.h"
+#include "common_macros.h"
+#include "lcd.h"
+#include "uart.h"
+#include "keypad.h"
+
+/*******************************************************************************
+ *                      Functions Prototypes                                   *
+ *******************************************************************************/
+
+void display_options (void);
+void ChangePassword(void);
+void EnterNewPassword(void);
+void CheckPassword (void);
+void OpenDoorMC1(void);
+void StopDoorMC1(void);
+void ClosingDoorMC1(void);
+void BuzzerMC1 (void);
+
+void TASK_optionsDisplay(void);
+void TASK_passwordChange(void);
+void TASK_newPasswordEnter(void);
+
+#endif /* FINALPROJECT_H_ */

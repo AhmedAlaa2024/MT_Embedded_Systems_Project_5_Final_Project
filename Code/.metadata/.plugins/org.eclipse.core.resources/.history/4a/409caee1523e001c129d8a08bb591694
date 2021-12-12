@@ -1,0 +1,178 @@
+ /******************************************************************************
+ *
+ * Module: The Application for the Human Machine Interface ECU
+ *
+ * File Name: main.c
+ *
+ * Description: Source file for the Application for the Human Machine Interface ECU
+ *
+ * Author: Ahmed Alaa
+ *
+ *******************************************************************************/
+
+#define F_CPU 8000000UL
+#define HMI_ECU_IS_READY 0xA5
+#define CONTROL_ECU_IS_READY 0x5A
+
+#define CLEAR_SCREAN 0xFF
+
+#include "../MCAL/inc/uart.h"
+#include "../HAL/inc/lcd.h"
+#include "../HAL/inc/keypad.h"
+#include "../MCAL/inc/std_types.h"
+
+typedef enum {
+	REQUEST_PASSWORD=0x11, CHANGE_PASSWORD=0x22, REAPET_REQUEST_PASSWORD=0x33, SHOW_MENU=0x44, OPEN_DOOR=0x55, CLOSE_DOOR=0x66, ALERT=0x77
+} ACTION;
+
+UART_config uart_config = {
+		9600,
+		EIGHT_BITS,
+		DISABLED,
+		ONE_BIT
+};
+
+void TASK_passwordRequest(uint8 *response);
+void TASK_passwordRepeat(uint8 *response);
+void TASK_passwordChange(uint8 *response);
+void TASK_menuShow(uint8 *response);
+void TASK_doorOpen();
+void TASK_doorClose();
+void TASK_alert();
+
+int main(void)
+{
+	/* Setup Configurations */
+	UART_init(&uart_config);
+	LCD_init();
+	uint8 message[20];
+	char temp_password[6];
+	ACTION request;
+
+	/* Super Loop */
+	while(1)
+	{
+		UART_sendByte(HMI_ECU_IS_READY);
+		request = UART_recieveByte();
+
+		if (request == REQUEST_PASSWORD)
+		{
+			TASK_passwordRequest(temp_password);
+			request = REAPET_REQUEST_PASSWORD;
+		}
+		else if (request == REAPET_REQUEST_PASSWORD)
+		{
+			TASK_RequestPassword(2);
+
+			if (TASK_CheckPassword() == WRONG)
+			{
+				request = REQUEST_PASSWORD;
+			}
+			else
+			{
+				TASK_MenuShow();
+			}
+		}
+		else if (request == SHOW_MENU)
+		{
+
+		}
+		else if (request == CHANGE_PASSWORD)
+		{
+
+		}
+		else if (request == OPEN_DOOR)
+		{
+
+		}
+		else if (request == CLOSE_DOOR)
+		{
+
+		}
+		else if (request == ALERT)
+		{
+
+		}
+	}
+
+	return 0;
+}
+
+void TASK_passwordRequest(uint8 *response)
+{
+	int counter = 0;
+	LCD_clearScreen();
+	LCD_displayString("Please Enter Pass:");
+	LCD_moveCursor(1, 0);
+
+	/* Super Loop */
+	while(1)
+	{
+		if (counter == 5)
+			break;
+
+		response[counter] = KEYPAD_getPressedKey();
+		counter++;
+		LCD_displayCharacter('*');
+	}
+
+	UART_sendByte(HMI_ECU_IS_READY);
+	UART_sendString(response);
+}
+
+
+void TASK_passwordRepeat(uint8 *response)
+{
+	int counter = 0;
+	LCD_clearScreen();
+	LCD_displayString("Please Reenter Pass:");
+	LCD_moveCursor(1, 0);
+
+	/* Super Loop */
+	while(1)
+	{
+		if (counter == 5)
+			break;
+
+		response[counter] = KEYPAD_getPressedKey();
+		counter++;
+		LCD_displayCharacter('*');
+	}
+
+	UART_sendByte(HMI_ECU_IS_READY);
+	UART_sendString(response);
+}
+
+
+void TASK_passwordChange(uint8 *response)
+{
+	char first_password[6];
+	char second_password[6];
+
+	TASK_passwordRequest(first_password);
+	TASK_passwordRepeat(second_password);
+}
+
+
+void TASK_menuShow(uint8 *response)
+{
+
+}
+
+
+void TASK_doorOpen()
+{
+
+}
+
+
+void TASK_doorClose()
+{
+
+}
+
+
+void TASK_alert()
+{
+
+}

@@ -1,0 +1,46 @@
+ /******************************************************************************
+ *
+ * Module: The Application for the Human Machine Interface ECU
+ *
+ * File Name: main.c
+ *
+ * Description: Source file for the Application for the Human Machine Interface ECU
+ *
+ * Author: Ahmed Alaa
+ *
+ *******************************************************************************/
+
+#define F_CPU 8000000UL
+#include "../MCAL/inc/uart.h"
+#include "../HAL/inc/lcd.h"
+#include "../HAL/inc/keypad.h"
+#include "../MCAL/inc/std_types.h"
+#include <avr/io.h>
+#include <util/delay.h>
+
+uint8 line_id = 0;
+
+UART_config uart_config = {
+		9600,
+		EIGHT_BITS,
+		DISABLED,
+		ONE_BIT
+};
+
+int main(void)
+{
+	/* Setup Configurations */
+	LCD_init();
+	char input;
+
+	/* Super Loop */
+	while(1)
+	{
+		input = KEYPAD_getPressedKey();
+		if(input == '\n')
+		LCD_displayCharacter(input);
+		_delay_ms(500);
+	}
+
+	return 0;
+}

@@ -1,0 +1,61 @@
+ /******************************************************************************
+ *
+ * Module: The Application for the control ECU
+ *
+ * File Name: main.c
+ *
+ * Description: Source file for the Application for the control ECU
+ *
+ * Author: Ahmed Alaa
+ *
+ *******************************************************************************/
+#define F_CPU 8000000UL
+#define HMI_ECU_is_ready 0xA5
+#define CONTROL_ECU_IS_READY 0x5A
+
+#include "../MCAL/inc/uart.h"
+#include <avr/io.h>
+
+typedef enum {
+	REQUEST_PASSWORD, REAPET_REQUEST_PASSWORD, OPEN_DOOR, CLOSE_DOOR, CHANGE_PASSWORD, ALERT
+} ACTION;
+
+UART_config uart_config = {
+		9600,
+		EIGHT_BITS,
+		DISABLED,
+		ONE_BIT
+};
+char password[6];
+char another_password[6];
+int main(void)
+{
+	/* Setup Configurations */
+	ACTION current_action = REQUEST_PASSWORD;
+	UART_init(&uart_config);
+
+
+	/* Super Loop */
+	while(1)
+	{
+
+
+		UART_sendString("Re-enter Password:");
+
+		UART_receiveString(another_password);
+
+		if(strcmp(password, another_password))
+			UART_sendByte(WRONG);
+	}
+
+	return 0;
+}
+
+void RequestPassword_Task()
+{
+	/* Wait until MC2 is ready to receive the string */
+	while(UART_recieveByte() != HMI_ECU_is_ready);
+	UART_sendString("Enter Password:");
+
+	UART_receiveString(password);
+}

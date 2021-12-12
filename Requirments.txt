@@ -1,0 +1,14 @@
+A. Final Project
+	- This project is mandatory for the certificate.
+	- Send the project to:
+	  mtarek.embedded.diploma56@gmail.com
+	- Email Subject: YOUR_FACEBOOK_NAME_Final_Project
+	- The email must contain your name as required in the certificate.
+	- Deadline for the project is Saturday 6/11/2021 - 11:59PM
+B. Notes for the project Delivery:
+	- Implement a full Timer0 driver to support both Normal and Compare modes using interrupt and call-back.
+	- Update the UART driver Initialization function with the configuration structure.
+	- Update the I2C driver Initialization function with the configuration structure.
+	- Implement buzzer driver.
+	- Other drivers should be same as the one used in the course sessions.
+	- Use the layered model in both MCU projects.

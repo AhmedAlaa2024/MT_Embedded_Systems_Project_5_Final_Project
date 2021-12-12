@@ -1,0 +1,19 @@
+/*====================================================================================================
+ || Module: HMI_ECU Main																			||
+ ||																									||
+ || File Name: HMI_ECU_main.h																		||
+ ||																									||
+ || Description: Header file for the Application Module.											||
+ ||																									||
+ || Created on: Nov 5, 2021																			||
+ ||																									||
+ || Author: Ahmed Alaa																				||
+ ====================================================================================================*/
+
+#ifndef FINALPROJECT_H_
+#define FINALPROJECT_H_
+
+
+
+
+#endif /* FINALPROJECT_H_ */

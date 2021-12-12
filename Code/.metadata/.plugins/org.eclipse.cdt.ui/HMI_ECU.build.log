@@ -1,0 +1,46 @@
+23:27:12 **** Incremental Build of configuration Debug for project HMI_ECU ****
+make all 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=1000000UL -MMD -MP -MF"main.d" -MT"main.o" -c -o "main.o" "../main.c"
+../main.c:16:1: warning: "F_CPU" redefined
+<command-line>: warning: this is the location of the previous definition
+In file included from ../main.c:25:
+c:/winavr-20100110/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+../main.c: In function 'main':
+../main.c:77: warning: implicit declaration of function 'BUZZER_init'
+../main.c: In function 'TASK_passwordChange':
+../main.c:159: warning: passing argument 1 of 'UART_receiveString' discards qualifiers from pointer target type
+../main.c: In function 'TASK_newPasswordEnter':
+../main.c:295: warning: passing argument 1 of 'UART_sendString' discards qualifiers from pointer target type
+../main.c: In function 'TASK_passwordCheck':
+../main.c:323: warning: passing argument 1 of 'UART_receiveString' discards qualifiers from pointer target type
+Finished building: ../main.c
+ 
+Building target: HMI_ECU.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,HMI_ECU.map -mmcu=atmega16 -o "HMI_ECU.elf"  ./buzzer.o ./gpio.o ./keypad.o ./lcd.o ./main.o ./timer.o ./uart.o   
+Finished building target: HMI_ECU.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S HMI_ECU.elf  >"HMI_ECU.lss"
+Finished building: HMI_ECU.lss
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega16 HMI_ECU.elf
+AVR Memory Usage
+----------------
+Device: atmega16
+
+Program:   13860 bytes (84.6% Full)
+(.text + .data + .bootloader)
+
+Data:        291 bytes (28.4% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+23:27:17 Build Finished. 0 errors, 6 warnings. (took 4s.653ms)
+

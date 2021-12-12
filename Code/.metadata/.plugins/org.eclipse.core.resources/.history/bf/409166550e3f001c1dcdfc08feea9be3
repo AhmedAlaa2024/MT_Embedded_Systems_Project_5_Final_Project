@@ -1,0 +1,49 @@
+/*
+ * FinalProject.c
+ *
+ *  Created on: 16/12þ/2020
+ *      Author: Ahmed El Daly
+ */
+
+#ifndef FINALPROJECT_H_
+#define FINALPROJECT_H_
+
+
+/*******************************************************************************
+ *                      Preprocessor Macros                                    *
+ *******************************************************************************/
+
+#define HMI_ECU_IS_READY 			0xA5
+#define CONTROL_ECU_IS_READY 		0x5A
+
+#define ALERT 						0xBB
+
+#define CORRECT 					0xF0
+#define WRONG 						0x0F
+
+/*******************************************************************************
+ *                                   INCLUDES                                  *
+ *******************************************************************************/
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include "std_types.h"
+#include "../MCAL/inc/common_macros.h"
+#include "../MCAL/inc/timer.h"
+#include "../MCAL/inc/uart.h"
+#include "../HAL/inc/lcd.h"
+#include "../HAL/inc/keypad.h"
+
+/*******************************************************************************
+ *                      Functions Prototypes                                   *
+ *******************************************************************************/
+void TASK_optionsDisplay(void);
+void TASK_passwordChange(void);
+void TASK_newPasswordEnter(void);
+void TASK_passwordCheck(void);
+void TASK_doorOpen(void);
+void TASK_doorStop(void);
+void TASK_doorClose(void);
+void TASK_alert(void);
+
+#endif /* FINALPROJECT_H_ */

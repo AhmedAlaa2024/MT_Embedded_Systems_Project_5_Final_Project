@@ -1,0 +1,18 @@
+ /******************************************************************************
+ *
+ * Module: BUZZER
+ *
+ * File Name: buzzer.h
+ *
+ * Description: Header file for the buzzer driver
+ *
+ * Author: Ahmed Alaa
+ *
+ *******************************************************************************/
+
+#ifndef HAL_BUZZER_H_
+#define HAL_BUZZER_H_
+
+#define BUZZER_PORT			PORTA_ID
+
+#endif /* HAL_BUZZER_H_ */
